@@ -2,16 +2,16 @@
 #include <regex>
 using namespace std;
 int main() {
-    const regex h1_pattern = regex("#{1} (.+)");
-    const regex h2_pattern = regex("#{2} (.+)");
-    const regex h3_pattern = regex("#{3} (.+)");
-    const regex h4_pattern = regex("#{4} (.+)");
-    const regex h5_pattern = regex("#{5} (.+)");
-    const regex h6_pattern = regex("#{6} (.+)");
+    const regex h1_pattern = regex(R"(#{1} (.+))");
+    const regex h2_pattern = regex(R"(#{2} (.+))");
+    const regex h3_pattern = regex(R"(#{3} (.+))");
+    const regex h4_pattern = regex(R"(#{4} (.+))");
+    const regex h5_pattern = regex(R"(#{5} (.+))");
+    const regex h6_pattern = regex(R"(#{6} (.+))");
 
-    const regex em_pattern = regex("\\*(.+)\\*");
-    const regex del_pattern = regex("~~(.+)~~");
-    const regex strong_pattern = regex("\\*\\*(.+)\\*\\*");
+    const regex em_pattern = regex(R"(\*(.+)\*)");
+    const regex del_pattern = regex(R"(~~(.+)~~)");
+    const regex strong_pattern = regex(R"(\*\*(.+)\*\*)");
 
     const string input_md =
             "# *Art* competition for children from day care centres\n"
