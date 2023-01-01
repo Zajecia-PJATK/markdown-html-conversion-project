@@ -23,9 +23,13 @@ int main() {
 
     const regex hr_pattern = regex(R"(---\n)");
 
-    const regex first_list_element_pattern = regex(R"(\n\n- (.+))");
-    const regex last_list_element_pattern = regex(R"(- (.+)\n{2})");
-    const regex measure_list_element_pattern = regex(R"(- (.+))");
+    const regex first_list_ul_pattern = regex(R"(\n\n- (.+))");
+    const regex last_list_ul_pattern = regex(R"(- (.+)\n{2})");
+    const regex rest_list_ul_pattern = regex(R"(- (.+))");
+
+    const regex first_list_ol_pattern = regex(R"(\n{2}\d+. (.+))");
+    const regex rest_list_ol_pattern = regex(R"(\d+. (.+))");
+    const regex last_list_ol_pattern = regex(R"(\d+. (.+)\n{2})");
 
     const string input_md =
             "# *Art* competition for children from day care centres\n"
@@ -50,7 +54,17 @@ int main() {
             "- trzeci argument\n"
             "- czwarty argument\n"
             "- piaty argument\n"
+            "\n"
+            "\n"
+            "\n"
+            "1. pierwszy argument\n"
+            "2. drugi argument\n"
+            "3. trzeci argument\n"
+            "4. czwarty argument\n"
+            "5. piąty argument\n"
+            "\n"
             "\n";
+
 
 
     string text = input_md;
@@ -76,9 +90,13 @@ int main() {
 
     text = regex_replace(text, hr_pattern, "<hr>\n");
 
-    text = regex_replace(text, first_list_element_pattern, "\n<ul>\n\t<li>$1</li>");
-    text = regex_replace(text, last_list_element_pattern, "\t<li>$1</li>\n</ul>\n");
-    text = regex_replace(text, measure_list_element_pattern, "\t<li>$1</li>");
+    text = regex_replace(text, first_list_ul_pattern, "\n<ul>\n\t<li>$1</li>");
+    text = regex_replace(text, rest_list_ul_pattern, "\t<li>$1</li>");
+    text = regex_replace(text, last_list_ul_pattern, "\t<li>$1</li>\n</ul>\n");
+
+    text = regex_replace(text, first_list_ol_pattern, "\n<ol>\n\t<li>$1</li>");
+    text = regex_replace(text, last_list_ol_pattern, "\t<li>$1</li>\n</ol>\n");
+    text = regex_replace(text, rest_list_ol_pattern, "\t<li>$1</li>");
 
 
     cout << text <<  endl;
