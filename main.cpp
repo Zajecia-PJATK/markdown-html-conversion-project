@@ -23,6 +23,10 @@ int main() {
 
     const regex hr_pattern = regex(R"(---\n)");
 
+    const regex first_list_element_pattern = regex(R"(\n\n- (.+))");
+    const regex last_list_element_pattern = regex(R"(- (.+)\n{2})");
+    const regex measure_list_element_pattern = regex(R"(- (.+))");
+
     const string input_md =
             "# *Art* competition for children from day care centres\n"
             "## *Comprehensive survey on the functioning of day care centres*\n"
@@ -39,7 +43,14 @@ int main() {
             "[inline](https://markdowntohtml.com)\n"
             "![text](http://placekitten.com/g/200/302 \"tytuł\")\n"
             "![text](http://placekitten.com/g/200/302)\n"
-            "---\n";
+            "---\n"
+            "\n"
+            "- pierwszy argument\n"
+            "- drugi argument\n"
+            "- trzeci argument\n"
+            "- czwarty argument\n"
+            "- piaty argument\n"
+            "\n";
 
 
     string text = input_md;
@@ -63,7 +74,11 @@ int main() {
     text = regex_replace(text, a_title_pattern, R"(<a href="$2" title="$1">$3</a>)");
     text = regex_replace(text, a_pattern, "<a href=\"$2\">$1</a>");
 
-    text = regex_replace(text, hr_pattern, "<hr>");
+    text = regex_replace(text, hr_pattern, "<hr>\n");
+
+    text = regex_replace(text, first_list_element_pattern, "\n<ul>\n\t<li>$1</li>");
+    text = regex_replace(text, last_list_element_pattern, "\t<li>$1</li>\n</ul>\n");
+    text = regex_replace(text, measure_list_element_pattern, "\t<li>$1</li>");
 
 
     cout << text <<  endl;
