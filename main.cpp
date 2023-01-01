@@ -14,6 +14,7 @@ int main() {
     const regex strong_pattern = regex(R"(\*\*(.+)\*\*)");
 
     const regex pre_code_pattern = regex(R"(```\n((.|\n)+)\n```)");
+    const regex code_pattern = regex(R"(\`(.+)\`)");
 
     const string input_md =
             "# *Art* competition for children from day care centres\n"
@@ -23,6 +24,7 @@ int main() {
             "##### The gif*t is a sens*e of security\n"
             "###### **St**udy visit from the USA\n"
             "###### *wsedfyhiolki*jugfdsxcv\n"
+            "`cos tam cos tam`\n"
             "```\n"
             "\t\t\tO\n"
             "\t\tO\n"
@@ -46,9 +48,10 @@ int main() {
     string with_del_replaced = regex_replace(with_em_replaced, del_pattern, "<del>$1</del>");
 
     string with_pre_code_replaced = regex_replace(with_del_replaced, pre_code_pattern, "<pre><code>$1</code></pre>");
+    string with_code_replaced = regex_replace(with_pre_code_replaced, code_pattern, "<code>$1</code>");
 
 
-    cout << with_pre_code_replaced <<  endl;
+    cout << with_code_replaced <<  endl;
 
     return 0;
 }
