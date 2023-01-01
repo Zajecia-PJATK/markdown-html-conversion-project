@@ -16,6 +16,9 @@ int main() {
     const regex pre_code_pattern = regex(R"(```\n((.|\n)+)\n```)");
     const regex code_pattern = regex(R"(\`(.+)\`)");
 
+    const regex a_title_pattern = regex(R"(\[(.+)\]\(([^\"\)]+) \"(.+)\"\))");
+    const regex a_pattern = regex(R"(\[(.+)]\((.+)\))");
+
     const string input_md =
             "# *Art* competition for children from day care centres\n"
             "## *Comprehensive survey on the functioning of day care centres*\n"
@@ -28,30 +31,30 @@ int main() {
             "```\n"
             "\t\t\tO\n"
             "\t\tO\n"
-            "\tO\n"
-            "```\n"
-            "\t\t\tO\n"
-            "\t\tO\n"
-            "\tO\n"
-            ;
+            "[have a title](https://markdowntohtml.com \"Awesome Markdown Converter\")\n"
+            "[inline](https://markdowntohtml.com)";
 
 
-    string with_h6_replaced = regex_replace(input_md, h6_pattern, "<h6>$1</h6>");
-    string with_h5_replaced = regex_replace(with_h6_replaced, h5_pattern, "<h5>$1</h5>");
-    string with_h4_replaced = regex_replace(with_h5_replaced, h4_pattern, "<h4>$1</h4>");
-    string with_h3_replaced = regex_replace(with_h4_replaced, h3_pattern, "<h3>$1</h3>");
-    string with_h2_replaced = regex_replace(with_h3_replaced, h2_pattern, "<h2>$1</h2>");
-    string with_h1_replaced = regex_replace(with_h2_replaced, h1_pattern, "<h1>$1</h1>");
+    string text = input_md;
 
-    string with_strong_replaced = regex_replace(with_h1_replaced, strong_pattern, "<strong>$1</strong>");
-    string with_em_replaced = regex_replace(with_strong_replaced, em_pattern, "<em>$1</em>");
-    string with_del_replaced = regex_replace(with_em_replaced, del_pattern, "<del>$1</del>");
+    text = regex_replace(text, h6_pattern, "<h6>$1</h6>");
+    text = regex_replace(text, h5_pattern, "<h5>$1</h5>");
+    text = regex_replace(text, h4_pattern, "<h4>$1</h4>");
+    text = regex_replace(text, h3_pattern, "<h3>$1</h3>");
+    text = regex_replace(text, h2_pattern, "<h2>$1</h2>");
+    text = regex_replace(text, h1_pattern, "<h1>$1</h1>");
 
-    string with_pre_code_replaced = regex_replace(with_del_replaced, pre_code_pattern, "<pre><code>$1</code></pre>");
-    string with_code_replaced = regex_replace(with_pre_code_replaced, code_pattern, "<code>$1</code>");
+    text = regex_replace(text, strong_pattern, "<strong>$1</strong>");
+    text = regex_replace(text, em_pattern, "<em>$1</em>");
+    text = regex_replace(text, del_pattern, "<del>$1</del>");
 
+    text = regex_replace(text, pre_code_pattern, "<pre><code>$1</code></pre>");
+    text = regex_replace(text, code_pattern, "<code>$1</code>");
 
-    cout << with_code_replaced <<  endl;
+    text = regex_replace(text, a_title_pattern, R"(<a href="$2" title="$1">$3</a>)");
+    text = regex_replace(text, a_pattern, "<a href=\"$2\">$1</a>");
+
+    cout << text <<  endl;
 
     return 0;
 }
