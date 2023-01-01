@@ -18,6 +18,8 @@ int main() {
 
     const regex a_title_pattern = regex(R"(\[(.+)\]\(([^\"\)]+) \"(.+)\"\))");
     const regex a_pattern = regex(R"(\[(.+)]\((.+)\))");
+    const regex img_title_pattern = regex(R"(!\[(.+)\]\(([^"\)]+) "(.+)\"\))");
+    const regex img_pattern = regex(R"(!\[(.+)]\((.+)\))");
 
     const string input_md =
             "# *Art* competition for children from day care centres\n"
@@ -32,7 +34,9 @@ int main() {
             "\t\t\tO\n"
             "\t\tO\n"
             "[have a title](https://markdowntohtml.com \"Awesome Markdown Converter\")\n"
-            "[inline](https://markdowntohtml.com)";
+            "[inline](https://markdowntohtml.com)\n"
+            "![text](http://placekitten.com/g/200/302 \"tytuł\")\n"
+            "![text](http://placekitten.com/g/200/302)";
 
 
     string text = input_md;
@@ -51,8 +55,11 @@ int main() {
     text = regex_replace(text, pre_code_pattern, "<pre><code>$1</code></pre>");
     text = regex_replace(text, code_pattern, "<code>$1</code>");
 
+    text = regex_replace(text, img_title_pattern, R"(<img src="$2" alt="$1" title="$3">)");
+    text = regex_replace(text, img_pattern, R"(<img src="$2" alt="$1">)");
     text = regex_replace(text, a_title_pattern, R"(<a href="$2" title="$1">$3</a>)");
     text = regex_replace(text, a_pattern, "<a href=\"$2\">$1</a>");
+
 
     cout << text <<  endl;
 
