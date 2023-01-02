@@ -31,6 +31,11 @@ int main() {
     const regex rest_list_ol_pattern = regex(R"(\d+. (.+))");
     const regex last_list_ol_pattern = regex(R"(\d+. (.+)\n{2})");
 
+    const regex blockquote_pattern = regex(R"(\n\n> (.+)\n\n)");
+    const regex blockquote_multiple_first_pattern = regex(R"(\n\n> (.+))");
+    const regex blockquote_multiple_last_pattern = regex(R"(> (.+)\n\n)");
+    const regex blockquote_multiple_rest_pattern = regex(R"(> (.+))");
+
     const string input_md =
             "# *Art* competition for children from day care centres\n"
             "## *Comprehensive survey on the functioning of day care centres*\n"
@@ -63,7 +68,17 @@ int main() {
             "4. czwarty argument\n"
             "5. piąty argument\n"
             "\n"
-            "\n";
+            "\n"
+            "\n"
+            "> Dorothy followed her through many of the beautiful rooms in her castle.\n"
+            "\n"
+            "\n"
+            "\n"
+            "\n"
+            "> Dorothy followed her through many of the beautiful rooms in her castle.\n"
+            "> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.\n"
+            "\n"
+            "";
 
 
 
@@ -98,6 +113,10 @@ int main() {
     text = regex_replace(text, last_list_ol_pattern, "\t<li>$1</li>\n</ol>\n");
     text = regex_replace(text, rest_list_ol_pattern, "\t<li>$1</li>");
 
+    text = regex_replace(text, blockquote_pattern, "<blockquote>$1</blockquote>");
+    text = regex_replace(text, blockquote_multiple_first_pattern, "<blockquote><p>$1</p>");
+    text = regex_replace(text, blockquote_multiple_last_pattern, "<p>$1</p></blockquote>");
+    text = regex_replace(text, blockquote_multiple_rest_pattern, "<p>$1</p>");
 
     cout << text <<  endl;
 
