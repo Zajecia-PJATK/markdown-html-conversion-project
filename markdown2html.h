@@ -75,6 +75,7 @@ string markdown2html(string markdown) {
     html = regex_replace(html, md_blockquote_multiple_first_pattern, "<blockquote><p>$1</p>");
     html = regex_replace(html, md_blockquote_multiple_last_pattern, "<p>$1</p></blockquote>");
     html = regex_replace(html, md_blockquote_multiple_rest_pattern, "<p>$1</p>");
+
     
     return html;
 }
