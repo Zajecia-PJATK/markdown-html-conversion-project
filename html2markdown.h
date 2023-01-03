@@ -22,7 +22,25 @@ const regex html_code_pattern = regex(R"(<code>(.+)</code>)");
 const regex html_a_title_pattern = regex(R"(<a href="([^"]+)/" title="(.+)/">(.+)<\/a>)");
 const regex html_a_pattern = regex(R"(<a href="(.+)\">(.+)<\/a>)");
 const regex html_img_title_pattern = regex(R"(<img src="([^"]+)\" alt=\"(.+)\" title=\"(.+)\">)");
-const regex html_img_pattern = regex(R"(<img src="$2" alt="$1">)");
+const regex html_img_pattern = regex(R"(<img src=("[^"]+)\" alt=\"(.+)>)");
+
+const regex html_hr_pattern = regex(R"(<hr>)");
+
+const regex html_first_list_ul_pattern = regex(R"(<ul>\n<li>(.+)<\/li>\n)");
+const regex html_last_list_ul_pattern = regex(R"(<li>(.+)<\/li>\n<\/ul>)");
+const regex html_rest_ul_pattern = regex(R"(<li>(.+)<\/li>\n)");
+
+const regex html_firs_list_ol_pattern = regex(R"(<ol>\n<li>(.+)<\/li>\n)");
+const regex html_last_list_ol_pattern = regex(R"(<li>(.+)<\/li>\n>)");
+const regex html_rest_list_ol_pattern = regex(R"(<li>(.+)<\/li>\n<\/ol>)");
+
+//const regex html_blockquote_pattern = regex(R"(<blockquote>$1</blockquote>)");
+//const regex html_blockquote_multiple_first_pattern = regex(R"(<blockquote><p>$1</p>)");
+//const regex html_blockquote_multiple_last_pattern = regex(R"(<p>$1</p></blockquote>)");
+//const regex html_blockquote_multiple_rest_pattern = regex(R"(<p>$1</p>)");
+
+
+
 
 
 string html2markdown(string html) {
@@ -46,6 +64,22 @@ string html2markdown(string html) {
     markdown = regex_replace(markdown, html_img_pattern, "![$2]($1)");
     markdown = regex_replace(markdown, html_a_title_pattern, R"([$3]($1 "$2"))");
     markdown = regex_replace(markdown, html_a_pattern, R"([$1]($2))");//
+
+    markdown = regex_replace(markdown, html_hr_pattern, "---\n");
+
+    markdown = regex_replace(markdown, html_first_list_ul_pattern, "- $1\\n");
+    markdown = regex_replace(markdown, html_last_list_ul_pattern, "- $1\\n");
+    markdown = regex_replace(markdown, html_rest_ul_pattern, "- $1\\n");
+
+    markdown = regex_replace(markdown, html_firs_list_ol_pattern, "1. $1\n");
+    markdown = regex_replace(markdown, html_last_list_ol_pattern, "1. $1\\n");
+    markdown = regex_replace(markdown, html_rest_list_ol_pattern, "1. $1\\n");
+//
+//    markdown = regex_replace(markdown, html_blockquote_pattern, R"(\n\n> (.+)\n\n)");
+//    markdown = regex_replace(markdown, html_blockquote_multiple_first_pattern, "\\n\\n> (.+)");
+//    markdown = regex_replace(markdown, html_blockquote_multiple_last_pattern, "> (.+)\\n\\n");
+//    markdown = regex_replace(markdown, html_blockquote_multiple_rest_pattern, "> (.+)");
+
 
     return markdown;
 }
