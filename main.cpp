@@ -4,6 +4,7 @@
 
 using namespace std;
 
+#include "regex_replace.h"
 #include "markdown2html.h"
 #include "html2markdown.h"
 
@@ -53,8 +54,10 @@ int main() {
 //            "\n"
 //            "";
 //    cout << markdown2html(input_md) <<  endl;
-    string html =
-            "<h1>treść</h1>\n";
+    string html ="<blockquote><p>cytat csdfhjkjhcdxcvnjkjhfdf cfghjhgfdcvhjiuytfvbhk"
+                 "dfghkjhgfdfgh</p><p>aaa</p><p>bbb</p></blockquote>"
+                 "\n\n"
+                 "<blockquote>aaaaaaaaa</blockquote>";
     cout << html2markdown(html) << endl;
 
 
