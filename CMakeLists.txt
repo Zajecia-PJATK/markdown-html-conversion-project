@@ -20,3 +20,5 @@ target_link_libraries(markdown_html_conversion_project
         Qt::Gui
         Qt::Widgets
         )
+
+add_subdirectory(test)
