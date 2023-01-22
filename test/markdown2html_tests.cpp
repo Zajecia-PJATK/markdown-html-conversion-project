@@ -55,9 +55,66 @@ TEST_CASE("conversion md code", "[markdown2html]") {
 }
 
 TEST_CASE("conversion md a title", "[markdown2html]") {
-    REQUIRE(markdown2html("\\[(.+)\\]\\(([^\\\"\\)]+) \\\"(.+)\\\"\\)") == "<a href=\"(.+)\" title=\"(.+)\">(.+)</a>");
+    REQUIRE(markdown2html("[have a title](https://markdowntohtml.com \"Awesome\")") == "<a href=\"https://markdowntohtml.com\" title=\"Awesome\">have a title</a>");
+}
+
+TEST_CASE("conversion md a", "[markdown2html]") {
+    REQUIRE(markdown2html("[inline](https://markdowntohtml.com)") == "<a href=\"https://markdowntohtml.com\">inline</a>");
 }
 
 TEST_CASE("conversion md hr", "[markdown2html]") {
     REQUIRE(markdown2html("---\n") == "<hr>\n");
 }
+
+TEST_CASE("conversion md img title", "[markdown2html]") {
+    REQUIRE(markdown2html("![$2]($1 \"$3\")") == "<img src=\"$2\" alt=\"$1\" title=\"$3\">");
+}
+
+TEST_CASE("conversion md img", "[markdown2html]") {
+    REQUIRE(markdown2html("[alt text](https://placebear.com/300/300)") == "<img src=\"https://placebear.com/300/300\" alt=\"alt text\">");
+}
+
+TEST_CASE("conversion md first list ul", "[markdown2html]") {
+    REQUIRE(markdown2html("\n\n- things\n") == "\n<ul>\n\t<li>things</li>");
+}
+
+TEST_CASE("conversion md rest list ul", "[markdown2html]") {
+    REQUIRE(markdown2html("- things\n") == "\t<li>things</li>");
+}
+
+TEST_CASE("conversion md last list ul", "[markdown2html]") {
+    REQUIRE(markdown2html("- $1\n\n") == "\t<li>$1</li>\n</ul>\n");
+}
+
+TEST_CASE("conversion md first list ol", "[markdown2html]") {
+    REQUIRE(markdown2html("\n\n1. $1\n") == "\n<ol>\n\t<li>$1</li>");
+}
+
+TEST_CASE("conversion md last list ol", "[markdown2html]") {
+    REQUIRE(markdown2html("1. things\n\n") == "\t<li>things</li>\n</ol>\n");
+}
+
+TEST_CASE("conversion md rest list ol", "[markdown2html]") {
+    REQUIRE(markdown2html("1. $1\n") == "\t<li>$1</li>\"");
+}
+
+TEST_CASE("conversion md blockquote", "[markdown2html]") {
+    REQUIRE(markdown2html("> cos\\n\"") == "<blockquote>cos</blockquote>");
+}
+
+TEST_CASE("conversion md first blockquote", "[markdown2html]") {
+    REQUIRE(markdown2html("\n\n> $1\n") == "<blockquote><p>$1</p>");
+}
+
+TEST_CASE("conversion md last blockquote", "[markdown2html]") {
+    REQUIRE(markdown2html("> things\n\n") == "<p>things</p></blockquote>");
+}
+
+TEST_CASE("conversion md rest blockquote", "[markdown2html]") {
+    REQUIRE(markdown2html("> $1\n") == "<p>$1</p>");
+}
+
+
+
+
+

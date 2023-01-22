@@ -49,9 +49,8 @@ TEST_CASE("conversion del", "[html2markdown]") {
 }
 
 TEST_CASE("conversion pre code", "[html2markdown]") {
-    REQUIRE(html2markdown("<pre><code>things</code></pre>") == "```\nthings\n```");
+        REQUIRE(html2markdown("<pre><code>things</code></pre>") == "```\\nthings\\n```");
 }
-
 
 TEST_CASE("conversion code", "[html2markdown]") {
     REQUIRE(html2markdown("<code>things</code>") == "`things`");

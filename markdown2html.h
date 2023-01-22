@@ -58,7 +58,7 @@ string markdown2html(string markdown) {
 
     html = regex_replace(html, md_img_title_pattern, R"(<img src="$2" alt="$1" title="$3">)");
     html = regex_replace(html, md_img_pattern, R"(<img src="$2" alt="$1">)");
-    html = regex_replace(html, md_a_title_pattern, R"(<a href="$2" title="$1">$3</a>)");
+    html = regex_replace(html, md_a_title_pattern, R"(<a href="$2" title="$3">$1</a>)");
     html = regex_replace(html, md_a_pattern, "<a href=\"$2\">$1</a>");
 
     html = regex_replace(html, md_hr_pattern, "<hr>\n");

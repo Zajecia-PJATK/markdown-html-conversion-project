@@ -16,7 +16,7 @@ const regex html_strong_pattern = regex (R"(<strong>(.+)</strong>)");
 const regex html_em_pattern = regex(R"(<em>(.+)<\/em>)");
 const regex html_del_pattern = regex(R"(<del>(.+)</del>)");
 
-const regex html_pre_code_pattern = regex(R"(<pre><code>(\s|\S+)<\/code><\/pre>)");
+const regex html_pre_code_pattern = regex(R"(<pre>\n*<code>((.|\n)+)<\/code>\n*<\/pre>)");
 const regex html_code_pattern = regex(R"(<code>(.+)</code>)");
 
 const regex html_a_title_pattern = regex(R"(<a href="([^"]+)/" title="(.+)/">(.+)<\/a>)");//title = nazwa atrybutu
@@ -57,7 +57,7 @@ string html2markdown(string html) {
     markdown = regex_replace(markdown, html_em_pattern, "*$1*");
     markdown = regex_replace(markdown, html_del_pattern, "~~$1~~");
 
-    markdown = regex_replace(markdown, html_pre_code_pattern, R"(```\n$2\n```)");
+    markdown = regex_replace(markdown, html_pre_code_pattern, R"(```\n$1\n```)");
     markdown = regex_replace(markdown, html_code_pattern, "`$1`");
 
     markdown = regex_replace(markdown, html_img_title_pattern, "![$2]($1 \"$3\")");

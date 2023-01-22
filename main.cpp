@@ -33,6 +33,7 @@ int main(int argc, char *argv[]) {
     input_label->setAlignment(Qt::AlignCenter);
     output_label->setAlignment(Qt::AlignCenter);
     input_text_edit->setPlaceholderText("Start typing here");
+    input_text_edit->setAcceptRichText(false);
 
     auto *window = new QWidget();
     auto layout = new QGridLayout(window);
