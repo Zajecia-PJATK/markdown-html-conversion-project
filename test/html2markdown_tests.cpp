@@ -57,7 +57,7 @@ TEST_CASE("conversion code", "[html2markdown]") {
 }
 
 TEST_CASE("conversion img title", "[html2markdown]") {
-    REQUIRE(html2markdown("<a href=\"things\" title=\"things\">things<\\/a>)") == "![things](things \"things\")");
+        REQUIRE(html2markdown("<a href=\"https://markdowntohtml.com\" title=\"Awesome\">have a title</a>") == "[have a title](https://markdowntohtml.com \"Awesome\")");
 }
 
 TEST_CASE("conversion hr", "[html2markdown]") {

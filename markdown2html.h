@@ -56,7 +56,7 @@ string markdown2html(string markdown) {
     html = regex_replace(html, md_pre_code_pattern, "<pre><code>$1</code></pre>");
     html = regex_replace(html, md_code_pattern, "<code>$1</code>");
 
-    html = regex_replace(html, md_img_title_pattern, R"(<img src="$2" alt="$1" title="$3">)");
+    html = regex_replace(html, md_img_title_pattern, R"(<img src="$1" alt="$2" title="$3">)");
     html = regex_replace(html, md_img_pattern, R"(<img src="$2" alt="$1">)");
     html = regex_replace(html, md_a_title_pattern, R"(<a href="$2" title="$3">$1</a>)");
     html = regex_replace(html, md_a_pattern, "<a href=\"$2\">$1</a>");
@@ -64,8 +64,8 @@ string markdown2html(string markdown) {
     html = regex_replace(html, md_hr_pattern, "<hr>\n");
 
     html = regex_replace(html, md_first_list_ul_pattern, "\n<ul>\n\t<li>$1</li>");
-    html = regex_replace(html, md_rest_list_ul_pattern, "\t<li>$1</li>");
     html = regex_replace(html, md_last_list_ul_pattern, "\t<li>$1</li>\n</ul>\n");
+    html = regex_replace(html, md_rest_list_ul_pattern, "\t<li>$1</li>");
 
     html = regex_replace(html, md_first_list_ol_pattern, "\n<ol>\n\t<li>$1</li>");
     html = regex_replace(html, md_last_list_ol_pattern, "\t<li>$1</li>\n</ol>\n");
