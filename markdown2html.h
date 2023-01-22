@@ -31,7 +31,7 @@ const regex md_last_list_ul_pattern = regex(R"(- (.+)\n{2})");
 const regex md_rest_list_ul_pattern = regex(R"(- (.+))");
 
 const regex md_first_list_ol_pattern = regex(R"(\n{2}\d+. (.+))");
-const regex md_rest_list_ol_pattern = regex(R"(\d+. (.+))");
+const regex md_rest_list_ol_pattern = regex(R"(\n\d+. (.+))");
 const regex md_last_list_ol_pattern = regex(R"(\d+. (.+)\n{2})");
 
 const regex md_blockquote_pattern = regex(R"(\n\n> (.+)\n\n)");

@@ -18,9 +18,9 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-
+//cmake list == make, zielony trójkąt
     bool is_input_html = true;
-
+//new == dynamiczne przydzielanie pamięci
     auto *load_button = new QPushButton("Load");
     auto *save_button = new QPushButton("Save");
     auto *swap_button = new QPushButton("Swap");
@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
         input_text_edit->setText(contents.readAll());
     });
 
-    // obsługa guzika save
+    // obsługa guzika save, lamda === funkcja anonimowa
     QObject::connect(save_button, &QPushButton::clicked,[&window, &is_input_html, &output_text_edit](){
         auto fileName = QFileDialog::getSaveFileName(window, "Save File", is_input_html ? "file.md" : "file.html", is_input_html ? "Source file (*.md)" : "Source file (*.html)");
 
