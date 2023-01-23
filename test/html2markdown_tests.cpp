@@ -61,7 +61,7 @@ TEST_CASE("conversion html img title", "[html2markdown]") {
 }
 
 TEST_CASE("conversion html img", "[html2markdown]") {
-    REQUIRE(html2markdown("") == "");
+    REQUIRE(html2markdown("<img src=\"$2\" alt=\"$1\">") == "![$1\"](\"$2)");
 }
 
 TEST_CASE("conversion html hr", "[html2markdown]") {
@@ -73,14 +73,14 @@ TEST_CASE("conversion html blockquote", "[html2markdown]") {
 }
 
 TEST_CASE("conversion html list ul", "[html2markdown]") {
-    REQUIRE(html2markdown("") == "");
+    REQUIRE(html2markdown("<li>things</li>") == "- things");
 }
 
 TEST_CASE("conversion html list ol", "[html2markdown]") {
-    REQUIRE(html2markdown("") == "");
+    REQUIRE(html2markdown("\t<li>things</li>") == "1. things");
 }
-TEST_CASE("conversion html list blockquote", "[html2markdown]") {
-    REQUIRE(html2markdown("") == "");
+TEST_CASE("conversion html multiple blockquote", "[html2markdown]") {
+    REQUIRE(html2markdown("<blockquote>things</blockquote>") == "> things\n");
 }
 
 
