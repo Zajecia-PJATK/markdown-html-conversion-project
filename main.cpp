@@ -16,10 +16,11 @@ using namespace std;
 #include "html2markdown.h"
 
 
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
+int main(int argc, char *argv[]) {// główna funkcja w programie,
+    QApplication a(argc, argv);// agrumenty początkowe dla progarmu, pierwszy arguemtem będzie jego nazwa,
+    //QApplication to główna funkcja w tej bibliotece, jest na samym początku, bez tego nic by sie nie pojawiło na ekranie
 //cmake list == make, zielony trójkąt
-    bool is_input_html = true;
+    bool is_input_html = true; // zmienna, która trzyma w sobie tylko prawdę albo kłamstwo
 //new == dynamiczne przydzielanie pamięci
     auto *load_button = new QPushButton("Load");
     auto *save_button = new QPushButton("Save");
@@ -30,12 +31,14 @@ int main(int argc, char *argv[]) {
     auto *output_label = new QLabel("MD");
     auto *live_preview_text_edit = new QTextEdit();
 //*wskaźnik
-    input_label->setAlignment(Qt::AlignCenter);
-    output_label->setAlignment(Qt::AlignCenter);
-    input_text_edit->setPlaceholderText("Start typing here");
-    input_text_edit->setAcceptRichText(false);
+//auto automatyczne określenie typu
+    input_label->setAlignment(Qt::AlignCenter);//label tekst do wyświetlenia którego użytkownik nie może edytować
+    output_label->setAlignment(Qt::AlignCenter);// AlignCenter wyrównanie do środka
+    input_text_edit->setPlaceholderText("Start typing here"); //wyświetlanie wyszarzonego tekstu, który po wpisanie znika
+    input_text_edit->setAcceptRichText(false); //gdy się ustawi fałsz, to akceptuje tylko wprowadzenie zwykłego tekstu
+    //gdy, jest prawda to akceptuje wprowadzenie tekstu w bogatej postaci przez użytkownika
 
-    auto *window = new QWidget();
+    auto *window = new QWidget(); //jest oknem, przyjmuje inforamcje od QApplication
     auto layout = new QGridLayout(window);
 
     layout->addWidget(load_button, 0, 0);
