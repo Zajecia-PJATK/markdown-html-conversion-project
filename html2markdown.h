@@ -5,7 +5,7 @@
 #ifndef MARKDOWN_HTML_CONVERSION_PROJECT_HTML2MARKDOWN_H
 #define MARKDOWN_HTML_CONVERSION_PROJECT_HTML2MARKDOWN_H
 
-const regex html_h1_pattern = regex(R"(<h1>(.+)<\/h1>)");
+const regex html_h1_pattern = regex(R"(<h1>(.+)<\/h1>)");//funkcja, która zwraca regexa
 const regex html_h2_pattern = regex(R"(<h2>(.+)<\/h2>)");
 const regex html_h3_pattern = regex(R"(<h3>(.+)<\/h3>)");
 const regex html_h4_pattern = regex(R"(<h4>(.+)<\/h4>)");
@@ -43,7 +43,7 @@ const regex html_blockquote_multiple_rest_pattern = regex(R"(<p>(.|\s)*<\/p>\n?)
 const regex html_blockquote_multiple_all_pattern = regex(R"(<blockquote>\n<p>(.|\s)*<\/p>\n<\/blockquote>)");
 
 string html2markdown(string html) {
-    string markdown = html;
+    string markdown = html;// robienie kopii, by nie modyfikować oryginału
 
     markdown = regex_replace(markdown, regex("><"), ">\n<");
     markdown = regex_replace(markdown, html_h1_pattern, "# $1\n");
@@ -95,7 +95,7 @@ markdown = regex_replace(markdown, html_blockquote_multiple_all_pattern, [](cons
     return tmp;
 });
 
-    return markdown;
+    return markdown;// zwróć do md
 }
 
 #endif //MARKDOWN_HTML_CONVERSION_PROJECT_HTML2MARKDOWN_H

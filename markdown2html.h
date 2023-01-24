@@ -4,8 +4,8 @@
 
 #ifndef MARKDOWN_HTML_CONVERSION_PROJECT_MARKDOWN2HTML_H
 #define MARKDOWN_HTML_CONVERSION_PROJECT_MARKDOWN2HTML_H
-
-const regex md_h1_pattern = regex(R"(#{1} (.+))");
+// const = zmienna, której nie można modyfikować
+const regex md_h1_pattern = regex(R"(#{1} (.+))");//przypisanie stałej wartości
 const regex md_h2_pattern = regex(R"(#{2} (.+))");
 const regex md_h3_pattern = regex(R"(#{3} (.+))");
 const regex md_h4_pattern = regex(R"(#{4} (.+))");
@@ -40,7 +40,7 @@ const regex md_blockquote_multiple_last_pattern = regex(R"(> (.+)\n\n)");
 const regex md_blockquote_multiple_rest_pattern = regex(R"(> (.+))");
 
 string markdown2html(string markdown) {
-    string html = markdown;
+    string html = markdown;//
     
     html = regex_replace(html, md_h6_pattern, "<h6>$1</h6>");
     html = regex_replace(html, md_h5_pattern, "<h5>$1</h5>");
